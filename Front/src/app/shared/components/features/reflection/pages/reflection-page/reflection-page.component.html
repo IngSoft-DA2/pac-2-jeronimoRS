@@ -1,4 +1,24 @@
-<section class="p-4">
+<section class="container py-4">
   <h1>Reflection Page</h1>
-  <p>Esta es la página /reflection</p>
+  <p>Esta página lista los nombres de las DLL que contienen importers.</p>
+
+  <button class="btn btn-primary mb-3" (click)="onLoadImporters()">
+    Cargar Importers
+  </button>
+
+  <p *ngIf="api.isLoading()">Cargando...</p>
+
+  <p *ngIf="api.error()" class="text-danger">
+    {{ api.error() }}
+  </p>
+
+  <p *ngIf="!api.isLoading() && !api.error() && api.importers().length === 0">
+    No se encontraron DLLs.
+  </p>
+
+  <ul *ngIf="api.importers().length > 0" class="list-group">
+    <li class="list-group-item" *ngFor="let dll of api.importers()">
+      {{ dll }}
+    </li>
+  </ul>
 </section>
